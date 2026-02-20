@@ -132,9 +132,9 @@ function renderFooter() {
   <div style="position:absolute;top:20%;left:-200px;width:500px;height:500px;background:rgba(234,88,12,0.05);border-radius:50%;filter:blur(100px);pointer-events:none"></div>
 
   <div class="container" style="padding:96px 24px 48px;position:relative;z-index:1">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:48px;margin-bottom:64px">
+    <div class="footer-grid">
       <!-- Brand col -->
-      <div class="footer-brand" style="grid-column:span 2 / span 2;max-width:340px">
+      <div class="footer-brand" style="max-width:340px">
         <a href="index.html">
           <img src="https://horizons-cdn.hostinger.com/9fba43ae-9eea-4a9f-ab35-d6031519a866/68152e58c9d593adbe9e03b8d75dedcd.jpg"
             alt="BP2C" style="height:56px;width:auto;filter:brightness(0) invert(1);opacity:0.9;margin-bottom:20px;display:block">

@@ -97,6 +97,26 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
 .form-label { display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 6px; margin-left: 4px; }
 
 /* Footer */
+/* Footer layout: force 4 columns on desktop so "Entreprise" and "Nous Contacter" stay on the same row */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr; /* Brand + 3 colonnes */
+  gap: 48px;
+  margin-bottom: 64px;
+}
+
+/* Tablet: 2 colonnes, la marque prend toute la largeur */
+@media (max-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-brand {
+    grid-column: span 2 / span 2;
+    max-width: 100% !important;
+  }
+}
+
+/* Mobile: tu as déjà une règle @media (max-width: 640px) qui remet footer-brand sur 1 colonne */
 .footer-col-underline { position: absolute; bottom: -8px; left: 0; width: 48px; height: 4px; border-radius: 4px; }
 
 /* Cookie banner */
@@ -189,4 +209,18 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
   h1 { font-size: 2rem !important; }
   #emergency-btn { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 0.75rem; }
   #mobile-menu { top: 56px; }
+}
+/* Feature cards overlap tuning (prevents hero being covered) */
+.feature-overlap {
+  padding: 0 0 80px;
+  margin-top: -40px;   /* was -80px inline */
+  position: relative;
+  z-index: 20;
+}
+
+@media (max-width: 768px) {
+  .feature-overlap {
+    margin-top: -20px;
+    padding-bottom: 60px;
+  }
 }
