@@ -60,30 +60,66 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
 .nav-link:hover { color: #1d4ed8; }
 .nav-link.active { background: linear-gradient(to right, #2563eb, #1d4ed8); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
-/* Mobile menu (full-screen drawer) */
-#mobile-menu{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#ffffff;
-  z-index:60;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  flex-direction:column;
-
-  /* iOS safe area + espace “header” du menu */
-  padding-top: calc(env(safe-area-inset-top, 0px) + 16px);
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-}
-
-#mobile-menu.open{ display:flex; }
-
-/* Lock scroll when menu open — position:fixed nécessaire pour iOS Safari */
-body.no-scroll {
-  overflow: hidden;
+/* Mobile menu — drawer sous le header */
+#mobile-menu {
+  display: none;
   position: fixed;
-  width: 100%;
+  top: 72px; /* valeur de fallback CSS ; écrasée par JS (header.offsetHeight) à l'ouverture */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 60;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  flex-direction: column;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 8px 32px rgba(15,23,42,0.12);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
 }
+
+#mobile-menu.open { display: flex; }
+
+/* Bouton hamburger */
+.menu-toggle-btn {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.menu-toggle-btn:hover { background: #1e293b; }
+@media (min-width: 1024px) {
+  .menu-toggle-btn { display: none !important; }
+}
+
+/* Bouton d'appel dans le menu mobile */
+.menu-call-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #0f172a;
+  color: white;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.menu-call-btn:hover { background: #1e293b; }
+
+/* Blocage du scroll body quand menu ouvert */
+body.no-scroll { overflow: hidden; }
 .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-radius: 12px; font-size: 1.125rem; font-weight: 500; transition: all 0.2s; color: #475569; text-decoration: none; border: 1px solid transparent; }
 .mobile-nav-link:hover { background: #f8fafc; }
 .mobile-nav-link.active { background: #eff6ff; border-color: #dbeafe; color: #1d4ed8; }

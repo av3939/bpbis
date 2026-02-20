@@ -39,12 +39,6 @@ const navLinks = [
   { path: '/contact', label: 'Contact', file: 'contact.html' },
 ];
 
-const mobileExtraLinks = [
-  { path: '/faq', label: 'FAQ', file: 'faq.html' },
-  { path: '/mentions-legales', label: 'Mentions Légales', file: 'mentions-legales.html' },
-  { path: '/politique-confidentialite', label: 'Confidentialité', file: 'politique-confidentialite.html' },
-];
-
 function renderHeader() {
   const desktopNavHTML = navLinks.map(link =>
     `<a href="${link.file}" data-nav-path="${link.path}" class="nav-link">${link.label}</a>`
@@ -52,13 +46,9 @@ function renderHeader() {
 
   const mobileNavHTML = navLinks.map(link =>
     `<a href="${link.file}" data-nav-path="${link.path}" class="mobile-nav-link">
-      <span style="display:flex;align-items:center;gap:12px">${link.label}</span>
+      <span>${link.label}</span>
       <span style="color:#94a3b8">${ICONS.chevronRight}</span>
     </a>`
-  ).join('');
-
-  const mobileExtraHTML = mobileExtraLinks.map(link =>
-    `<a href="${link.file}" data-nav-path="${link.path}" class="mobile-nav-link" style="padding:12px 16px;font-size:0.875rem;color:#64748b">${link.label}</a>`
   ).join('');
 
   const headerHTML = `
@@ -66,12 +56,9 @@ function renderHeader() {
   <div class="container" style="padding:0 24px">
     <div style="display:flex;align-items:center;justify-content:space-between">
       <!-- Logo -->
-      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none;position:relative;z-index:50">
-        <div style="position:relative">
-          <img src="https://horizons-cdn.hostinger.com/9fba43ae-9eea-4a9f-ab35-d6031519a866/68152e58c9d593adbe9e03b8d75dedcd.jpg"
-            alt="BP2C Logo" style="height:52px;width:auto;object-fit:contain;display:block;transition:transform 0.3s"
-            onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-        </div>
+      <a href="index.html" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+        <img src="https://horizons-cdn.hostinger.com/9fba43ae-9eea-4a9f-ab35-d6031519a866/68152e58c9d593adbe9e03b8d75dedcd.jpg"
+          alt="BP2C Logo" style="height:48px;width:auto;object-fit:contain;display:block">
         <div style="display:flex;flex-direction:column">
           <span style="font-size:1.375rem;font-weight:800;color:#0f172a;line-height:1;letter-spacing:-0.02em">BP2C</span>
           <span style="font-size:0.65rem;font-weight:600;color:#2563eb;letter-spacing:0.15em;text-transform:uppercase">L'excellence de l'habitat</span>
@@ -92,37 +79,23 @@ function renderHeader() {
           <span>06 01 76 13 95</span>
         </a>
         <!-- Hamburger -->
-        <button id="menu-btn" class="show-mobile-only" aria-label="Ouvrir le menu"
-          style="
-            width:48px;height:48px;
-            display:flex;align-items:center;justify-content:center;
-            background:#0f172a;color:#ffffff;
-            border:none;border-radius:12px;
-            cursor:pointer;position:relative;z-index:60;
-            box-shadow:0 10px 30px rgba(15,23,42,0.25);
-          ">
-          <span id="menu-icon-open" style="display:flex">${ICONS.menu}</span>
+        <button id="menu-btn" class="menu-toggle-btn" aria-label="Ouvrir le menu">
+          <span id="menu-icon-open">${ICONS.menu}</span>
           <span id="menu-icon-close" style="display:none">${ICONS.x}</span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Menu — drawer positionné sous le header via JS -->
   <div id="mobile-menu">
-    <div style="padding:16px 16px 0;flex-grow:1">
-      <span style="font-size:0.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.15em;padding:0 16px;display:block;margin-bottom:8px">Menu Principal</span>
+    <nav style="padding:8px 12px;flex-grow:1">
       ${mobileNavHTML}
-      <div style="margin:24px 0;border-top:1px solid #f1f5f9"></div>
-      <span style="font-size:0.65rem;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.15em;padding:0 16px;display:block;margin-bottom:8px">Informations</span>
-      ${mobileExtraHTML}
-    </div>
-    <div style="padding:24px;background:#f8fafc;border-top:1px solid #f1f5f9;padding-bottom:96px">
-      <a href="tel:+33601761395"
-        style="display:flex;align-items:center;justify-content:center;gap:12px;background:#0f172a;color:white;width:100%;padding:16px;border-radius:12px;font-weight:700;font-size:1.125rem;text-decoration:none;margin-bottom:8px">
+    </nav>
+    <div style="padding:12px 16px 16px;background:#f8fafc;border-top:1px solid #f1f5f9">
+      <a href="tel:+33601761395" class="menu-call-btn">
         ${ICONS.phone} Appeler maintenant
       </a>
-      <p style="text-align:center;font-size:0.75rem;color:#94a3b8">Disponible 7j/7 pour vos urgences</p>
     </div>
   </div>
 </header>`;
@@ -321,21 +294,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderToast();
 
   // ============================================================
-  // SCROLL EFFECT
-  // ============================================================
-  const header = document.getElementById('main-header');
-  window.addEventListener('scroll', () => {
-    if (!header) return;
-    if (window.scrollY > 20) {
-      header.classList.add('header-scrolled');
-      header.classList.remove('header-top');
-    } else {
-      header.classList.remove('header-scrolled');
-      header.classList.add('header-top');
-    }
-  }, { passive: true });
-
-  // ============================================================
   // ACTIVE NAV LINK
   // ============================================================
   const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
@@ -355,45 +313,58 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // MOBILE MENU — contrôleur unique (après renderHeader)
+  // MOBILE MENU — contrôleur unique (components.js seulement)
   // ============================================================
-  const menuBtn = document.getElementById('menu-btn');
+  const header    = document.getElementById('main-header');
+  const menuBtn   = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('menu-icon-open');
+  const iconOpen  = document.getElementById('menu-icon-open');
   const iconClose = document.getElementById('menu-icon-close');
 
-  if (!menuBtn || !mobileMenu) return;
+  if (!header || !menuBtn || !mobileMenu) return;
 
-  // Sauvegarde de la position de scroll (nécessaire pour iOS Safari position:fixed)
-  let savedScrollY = 0;
-
-  function openMenu() {
-    savedScrollY = window.scrollY;
-    document.body.style.top = `-${savedScrollY}px`;
-    document.body.classList.add('no-scroll');
-    mobileMenu.classList.add('open');
-    if (iconOpen) iconOpen.style.display = 'none';
-    if (iconClose) iconClose.style.display = 'flex';
-    menuBtn.setAttribute('aria-label', 'Fermer le menu');
-  }
-
-  function closeMenu() {
-    document.body.classList.remove('no-scroll');
-    document.body.style.top = '';
-    window.scrollTo(0, savedScrollY);
-    mobileMenu.classList.remove('open');
-    if (iconOpen) iconOpen.style.display = 'flex';
-    if (iconClose) iconClose.style.display = 'none';
-    menuBtn.setAttribute('aria-label', 'Ouvrir le menu');
+  function setMenuState(open) {
+    if (open) {
+      // Positionne le drawer exactement sous le header au moment de l'ouverture
+      mobileMenu.style.top = header.offsetHeight + 'px';
+      mobileMenu.classList.add('open');
+      document.body.classList.add('no-scroll');
+      if (iconOpen)  iconOpen.style.display  = 'none';
+      if (iconClose) iconClose.style.display = 'flex';
+      menuBtn.setAttribute('aria-label', 'Fermer le menu');
+    } else {
+      mobileMenu.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+      if (iconOpen)  iconOpen.style.display  = 'flex';
+      if (iconClose) iconClose.style.display = 'none';
+      menuBtn.setAttribute('aria-label', 'Ouvrir le menu');
+    }
   }
 
   menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+    setMenuState(!mobileMenu.classList.contains('open'));
   });
 
-  // Fermeture automatique sur clic d'un lien du menu
+  // Fermeture au clic sur un lien du menu
   mobileMenu.addEventListener('click', (e) => {
-    if (e.target.closest('a')) closeMenu();
+    if (e.target.closest('a')) setMenuState(false);
   });
+
+  // ============================================================
+  // SCROLL EFFECT + ajustement top du drawer
+  // ============================================================
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      header.classList.add('header-scrolled');
+      header.classList.remove('header-top');
+    } else {
+      header.classList.remove('header-scrolled');
+      header.classList.add('header-top');
+    }
+    // Recalcule le top du drawer si le menu est ouvert (header qui rétrécit au scroll)
+    if (mobileMenu.classList.contains('open')) {
+      mobileMenu.style.top = header.offsetHeight + 'px';
+    }
+  }, { passive: true });
 
 });
