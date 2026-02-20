@@ -5,8 +5,15 @@
 // ============================================================
 const ICONS = {
   phone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>`,
-  menu: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>`,
-  x: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`,
+  menu: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+  <line x1="3" y1="6" x2="21" y2="6"/>
+  <line x1="3" y1="12" x2="21" y2="12"/>
+  <line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>`,
+  x: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+  <line x1="18" y1="6" x2="6" y2="18"/>
+  <line x1="6" y1="6" x2="18" y2="18"/>
+  </svg>`,
   chevronRight: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><polyline points="9 18 15 12 9 6"/></svg>`,
   arrowRight: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 ml-2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
   shieldCheck: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
@@ -85,23 +92,17 @@ function renderHeader() {
           <span>06 01 76 13 95</span>
         </a>
         <!-- Hamburger -->
-        <button id="menu-btn" class="show-mobile-only"
+        <button id="menu-btn" class="show-mobile-only" aria-label="Ouvrir le menu"
           style="
-            width:48px;
-            height:48px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            background:#0f172a;
-            color:white;
-            border:none;
-            border-radius:12px;
-            cursor:pointer;
-            position:relative;
-            z-index:60;
+            width:48px;height:48px;
+            display:flex;align-items:center;justify-content:center;
+            background:#0f172a;color:#ffffff;
+            border:none;border-radius:12px;
+            cursor:pointer;position:relative;z-index:60;
+            box-shadow:0 10px 30px rgba(15,23,42,0.25);
           ">
-          <span id="menu-icon-open">${ICONS.menu}</span>
-          <span id="menu-icon-close" style="display:none">${ICONS.x}</span>
+          <span id="menu-icon-open" style="display:flex">${ICONS.menu}</span>
+          <span id="menu-icon-close" style="display:none;display:flex">${ICONS.x}</span>
         </button>
       </div>
     </div>
@@ -336,6 +337,8 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileMenu.classList.toggle("open");
 
       const isOpen = mobileMenu.classList.contains("open");
+
+      document.body.classList.toggle("no-scroll", isOpen);
 
       if (iconOpen && iconClose) {
         iconOpen.style.display = isOpen ? "none" : "block";

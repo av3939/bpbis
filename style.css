@@ -60,19 +60,26 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
 .nav-link:hover { color: #1d4ed8; }
 .nav-link.active { background: linear-gradient(to right, #2563eb, #1d4ed8); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
 
-/* Mobile menu */
-#mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: white;
-  z-index: 55;
-  overflow-y: auto;
-  flex-direction: column;
-  padding-top: 96px;
-  padding-bottom: 80px;
+/* Mobile menu (full-screen drawer) */
+#mobile-menu{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#ffffff;
+  z-index:55;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  flex-direction:column;
+
+  /* iOS safe area + espace “header” du menu */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 16px);
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
 }
-#mobile-menu.open { display: flex; }
+
+#mobile-menu.open{ display:flex; }
+
+/* Lock scroll when menu open */
+body.no-scroll{ overflow:hidden; }
 .mobile-nav-link { display: flex; align-items: center; justify-content: space-between; padding: 16px; border-radius: 12px; font-size: 1.125rem; font-weight: 500; transition: all 0.2s; color: #475569; text-decoration: none; border: 1px solid transparent; }
 .mobile-nav-link:hover { background: #f8fafc; }
 .mobile-nav-link.active { background: #eff6ff; border-color: #dbeafe; color: #1d4ed8; }
@@ -231,7 +238,6 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
 @media (max-width: 768px) {
   h1 { font-size: 2rem !important; }
   #emergency-btn { bottom: 16px; right: 16px; padding: 10px 16px; font-size: 0.75rem; }
-  #mobile-menu { top: 64px; }
 }
 /* Feature cards overlap tuning (prevents hero being covered) */
 .feature-overlap {
