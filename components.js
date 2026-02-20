@@ -299,9 +299,34 @@ function renderToast() {
 // INIT
 // ============================================================
 document.addEventListener('DOMContentLoaded', () => {
+
   renderHeader();
   renderFooter();
   renderCookieBanner();
   renderEmergencyBtn();
   renderToast();
+
+  // MOBILE MENU TOGGLE (correct execution order)
+  const menuBtn = document.getElementById("menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const iconOpen = document.getElementById("menu-icon-open");
+  const iconClose = document.getElementById("menu-icon-close");
+
+  if (menuBtn && mobileMenu) {
+
+    menuBtn.addEventListener("click", function () {
+
+      mobileMenu.classList.toggle("open");
+
+      const isOpen = mobileMenu.classList.contains("open");
+
+      if (iconOpen && iconClose) {
+        iconOpen.style.display = isOpen ? "none" : "block";
+        iconClose.style.display = isOpen ? "block" : "none";
+      }
+
+    });
+
+  }
+
 });
