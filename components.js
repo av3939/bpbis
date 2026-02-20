@@ -332,7 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function setMenuState(open) {
     if (open) {
       // Positionne le drawer exactement sous le header au moment de l'ouverture
-      mobileMenu.style.top = header.offsetHeight + 'px';
       mobileMenu.classList.add('open');
       document.body.classList.add('no-scroll');
       if (iconOpen)  iconOpen.style.display  = 'none';
