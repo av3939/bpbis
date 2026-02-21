@@ -76,7 +76,7 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
 
   z-index: 9999;
 
-  overflow-y: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
 
   /* on enlève le padding-top qui cassait la perception */
@@ -100,10 +100,13 @@ body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: #11182
     margin: 0 auto;
     background: #ffffff;
     border-radius: 22px;
-    overflow: hidden;
     box-shadow: 0 18px 55px rgba(15, 23, 42, 0.18);
     border: 1px solid rgba(226, 232, 240, 0.9);
-  }
+
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
   .mobile-menu-title {
     padding: 16px 18px 10px;
